@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:id="@+id/lauoutpager"
+  android:background="@android:color/black">
+
+	<androidx.viewpager.widget.ViewPager
+	  android:id="@+id/pager"
+	  android:layout_width="match_parent"
+	  android:layout_height="match_parent"
+	  android:overScrollMode="never" />
+	<TextView
+			android:id="@+id/tvdescription"
+			android:layout_margin="20dp"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_alignParentTop="true"
+			android:textColor="#FFFFFF"
+			android:textSize="@dimen/abc_text_size_large_material"
+			android:gravity="center_horizontal"/>
+	
+	<ImageButton
+        android:id="@+id/btnclose"
+		android:layout_margin="20dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+		android:layout_alignParentBottom="true"
+		android:layout_centerHorizontal="true"
+        android:background="@drawable/ic_close" />
+	<ImageButton
+        android:id="@+id/btnshare"
+		android:layout_margin="20dp"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+		android:layout_alignParentBottom="true"
+       android:layout_alignParentRight="true"
+        android:background="@drawable/share" />
+</RelativeLayout>

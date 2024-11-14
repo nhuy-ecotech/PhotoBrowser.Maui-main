@@ -1,0 +1,111 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net8.0;net8.0-android;net8.0-ios</TargetFrameworks>
+		<UseMaui>true</UseMaui>
+		<SingleProject>true</SingleProject>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">11.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<PackageId>PhotoBrowserPersonal.Maui</PackageId>
+		<Title>PhotoBrowser.Maui</Title>
+		<Summary>PhotoBrowser.Maui library for projects using .NET MAUI</Summary>
+		<Authors>NamCkiku</Authors>
+		<Owners>$(Authors)</Owners>
+		<Company>$(Authors)</Company>
+		<NeutralLanguage>vi-VN</NeutralLanguage>
+		<Product>PhotoBrowser.Maui ($(TargetFramework))</Product>
+		<Copyright>Copyright © $([System.DateTime]::Today.ToString(yyyy)) $(Authors)</Copyright>
+		<PackageDescription>$(Description)</PackageDescription>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+		<PackageLicenseExpression></PackageLicenseExpression>
+		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+		<PackageProjectUrl>https://github.com/NamCkiku/PhotoBrowser.Maui</PackageProjectUrl>
+		<RepositoryType>git</RepositoryType>
+		<RepositoryUrl>git://github.com/NamCkiku/PhotoBrowser.Maui</RepositoryUrl>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<DefineConstants>$(DefineConstants);</DefineConstants>
+		<UseFullSemVerForNuGet>false</UseFullSemVerForNuGet>
+		<Description>
+			$(Summary)
+			Full screen image viewer(.NET MAUI) that includes "pinch to zoom" and "swipe to dismiss" gestures. - $(PackageId)
+		</Description>
+		<PackageReleaseNotes>
+			Native Library version:
+			Android library from : https://github.com/davemorrissey/subsampling-scale-image-view
+			iOS library from : https://github.com/mwaterfall/MWPhotoBrowser
+			Code improvements have been made.
+			Changes are detailed at https://github.com/NamCkiku/PhotoBrowser.Maui/releases
+		</PackageReleaseNotes>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<EmbedUntrackedSources>true</EmbedUntrackedSources>
+		<ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+		<Product>$(AssemblyName) ($(TargetFramework))</Product>
+		<FileVersion>$(Version)</FileVersion>
+		<AssemblyVersion>$(Version)</AssemblyVersion>
+		<AssemblyFileVersion>$(Version)</AssemblyFileVersion>
+		<Version>1.1.8</Version>
+		<VersionPrefix></VersionPrefix>
+		<VersionSuffix></VersionSuffix>
+		<PackageVersion>$(VersionPrefix)$(Version)$(VersionSuffix)</PackageVersion>
+		<PackageTags>maui, ios, android, PhotoBrowser,PhotoBrowser.Maui</PackageTags>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<Configurations>Debug;Release</Configurations>
+		<NoWarn>1587,1591</NoWarn>
+	</PropertyGroup>
+
+	<ItemGroup Condition="$(TargetFramework.StartsWith('net8.0-ios')) != true ">
+		<Compile Remove="Platforms\iOS\*.cs" />
+	</ItemGroup>
+
+	<ItemGroup Condition="$(TargetFramework.StartsWith('net8.0-android')) != true ">
+		<Compile Remove="Platforms\Android\*.cs" />
+	</ItemGroup>
+
+	<ItemGroup Condition="$(TargetFramework.StartsWith('net8.0-ios')) == true OR $(TargetFramework.StartsWith('net8.0-android')) == true">
+		<Compile Remove="**\*.Standard.cs" />
+		<Compile Remove="**\Standard\**\*.cs" />
+	</ItemGroup>
+
+	<PropertyGroup Condition="$(TargetFramework.StartsWith('net8.0-android'))">
+		<DefineConstants>$(DefineConstants);MONOANDROID</DefineConstants>
+	</PropertyGroup>
+
+	<PropertyGroup Condition=" '$(TargetFramework)' == 'net8.0-ios' ">
+		<DefineConstants>$(DefineConstants);IOS</DefineConstants>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <None Remove="Platforms\Android\Resources\layout\gallery_slide.xml" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.61" />
+		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.61" />
+		<PackageReference Include="FFImageLoading.Maui" Version="1.2.7" />
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'net8.0-android'">
+		<PackageReference Include="SubsamplingScaleImageView.Android" Version="1.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="..\LICENSE">
+			<Pack>True</Pack>
+			<PackagePath></PackagePath>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'net8.0-ios'">
+		<PackageReference Include="MWPhotoBrowser.iOS" Version="1.1.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Resource Include="Platforms\Android\Resources\layout\gallery_slide.xml" />
+	</ItemGroup>
+</Project>
